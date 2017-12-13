@@ -16,15 +16,11 @@ class HostViewController: MenuContainerViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let screenSize: CGRect = UIScreen.main.bounds
-        self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 6)
+        self.transitionOptions = TransitionOptions(duration: 0.4, visibleContentWidth: screenSize.width / 3)
         
-        // Instantiate menu view controller by identifier
         self.menuViewController = self.storyboard!.instantiateViewController(withIdentifier: "SideMenuListItemsViewController") as! MenuViewController
         
-        // Gather content items controllers
         self.contentViewControllers = contentControllers()
-        
-        // Select initial content controller. It's needed even if the first view controller should be selected.
         self.selectContentViewController(contentViewControllers.first!)
     }
     
@@ -40,7 +36,7 @@ class HostViewController: MenuContainerViewController {
         options.duration = size.width < size.height ? 0.4 : 0.6
         
         // Part of item content remaining visible on right when menu is shown
-        options.visibleContentWidth = size.width / 10
+        options.visibleContentWidth = size.width / 3
         self.transitionOptions = options
         
     }
