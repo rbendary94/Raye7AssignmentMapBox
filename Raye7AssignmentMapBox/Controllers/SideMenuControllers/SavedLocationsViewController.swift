@@ -54,6 +54,8 @@ class SavedLocationsViewController: UIViewController , SideMenuItemContent , UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HostViewController") as! HostViewController
+        DataModel.sharedInstance.currentLocation = savedLocations[indexPath.row]
+
         DataModel.sharedInstance.shouldResetMapCenter = true
         self.present(vc, animated: true, completion: nil)
         

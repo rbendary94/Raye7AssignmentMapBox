@@ -17,6 +17,7 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
     @IBOutlet weak var addToFavoritesBtn: UIButton!
     
     var currentUserLocation : Location?
+    var showingSavedLocation = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,13 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
         }
         
         if let location = DataModel.sharedInstance.currentLocation {
+            showingSavedLocation = true
+            addToFavoritesBtn.isHidden = true
             mapView.setCenter(CLLocationCoordinate2D(latitude: (location.latitude), longitude: (location.longitude)), zoomLevel: 15, animated: true)
+        }else{
+            showingSavedLocation = false
+            addToFavoritesBtn.isHidden = false
+
         }
     }
     
