@@ -46,10 +46,12 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
         // Dispose of any resources that can be recreated.
     }
     
+    
     func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
         //if User allows tracking then open app to his/her location.
         //else open app to Cairo's location.
         if mapView.isUserLocationVisible {
+            print("USER LOCATION VISIBLE ")
             mapView.setCenter(CLLocationCoordinate2D(latitude: (userLocation?.coordinate.latitude)!, longitude: (userLocation?.coordinate.longitude)!), zoomLevel: 15, animated: true)
             let userSimpleLocation = Location.init(locationName: "", longitude: (userLocation?.coordinate.longitude)!, latitude: (userLocation?.coordinate.latitude)! , saved: false)
             
@@ -60,6 +62,7 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
             if(!DataModel.sharedInstance.shouldResetMapCenter){
                 //default Location: Cairo
                 mapView.setCenter(CLLocationCoordinate2D(latitude: 30.0444, longitude: 31.2357), zoomLevel: 12, animated: true)
+                DataModel.sharedInstance.shouldResetMapCenter = false
             }
         }
         
@@ -68,14 +71,13 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
     @IBAction func saveCurrentLocation(_ sender: Any) {
         if let _ = currentUserLocation {
             //Pop Up: Location added to saved locations.
-            
             let alertController = UIAlertController(title: "Save this location", message: "Enter Location name.", preferredStyle: .alert)
             
             let saveAction = UIAlertAction(title: "Save", style: .default, handler: {
                 alert -> Void in
                 
                 let locationNameTextField = alertController.textFields![0] as UITextField
-                
+
                 if locationNameTextField.text != "" {
                     self.addToFavoritesBtn.isHidden = true
                     
@@ -106,6 +108,10 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
             
             self.present(alertController, animated: true, completion: nil)
             
+        }else{
+            let errorAlert = UIAlertController(title: "Alert", message: "Location Services not working at the moment.", preferredStyle: UIAlertControllerStyle.alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(errorAlert, animated: true, completion: nil)
         }
     }
     
