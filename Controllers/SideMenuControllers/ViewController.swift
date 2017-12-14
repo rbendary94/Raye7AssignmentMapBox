@@ -59,7 +59,7 @@ class ViewController: UIViewController,  MGLMapViewDelegate, SideMenuItemContent
         }else{
             if(!DataModel.sharedInstance.shouldResetMapCenter){
                 //default Location: Cairo
-                mapView.setCenter(CLLocationCoordinate2D(latitude: 30.0444, longitude: 31.2357), zoomLevel: 15, animated: true)
+                mapView.setCenter(CLLocationCoordinate2D(latitude: 30.0444, longitude: 31.2357), zoomLevel: 12, animated: true)
             }
         }
         
